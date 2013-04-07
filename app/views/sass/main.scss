@@ -1,3 +1,49 @@
 /*************************Mixins********************************************/
 
+
 /**************************Header Section***********************************/
+
+/**************************Container Section***********************************/
+
+// $header-img: image-url('app/views/img/45degreee_fabric.png', false, false);
+// background-image: $header-img;
+
+html{
+}
+header{
+	display:block;
+}
+
+font{
+
+}
+div.sidebar, div.feedview{
+	background-color: #dceaf4;
+	-webkit-border-radius: 5px;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+div.sidebar{
+	top: 125px;
+	margin: 0 auto;
+	position: fixed;
+	padding-bottom: 30px;
+}
+div.feedview{
+	
+}
+section{
+	display:inline;
+	position:relative;
+}
+img{
+	&.logo{
+		padding: 0;
+		margin: 0;
+		position:fixed;
+	}
+	&.settings{
+		padding-right: 10px;
+	}
+}
