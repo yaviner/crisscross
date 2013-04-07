@@ -41,6 +41,9 @@ function checkExists(userCalendarEvent,callback){
 					start_date: result[0].datetime_local,
 					end_date: result[0].datetime_local,
 					description: result[0].title, 
+					location_lat: result[0].venue.location.lat,
+					location_long: result[0].venue.location.lon,
+					picture_url: result[0].performers[0].image,										
 				};
 			}else{
 			//If no response, add the event with info from calendar
@@ -49,6 +52,9 @@ function checkExists(userCalendarEvent,callback){
 					start_date: date,
 					end_date: date,
 					description: description, 
+					location_lat: 0,
+					location_long: 0,
+					picture_url: null,										
 				};
 			}
 			//Create the new event and return
