@@ -1,7 +1,22 @@
 /*************************Mixins********************************************/
 /**************************Header Section***********************************/
 /**************************Container Section***********************************/
-/* line 8, ../sass/main.scss */
-span2, span10 {
-  background-color: grey;
+/* line 13, ../sass/main.scss */
+div.sidebar, div.feedview {
+  background-color: #dceaf4;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+  padding: 10px;
+}
+
+/* line 20, ../sass/main.scss */
+div.sidebar {
+  margin: 0 auto;
+  position: static;
+}
+
+/* line 24, ../sass/main.scss */
+section {
+  display: inline;
+  position: relative;
 }

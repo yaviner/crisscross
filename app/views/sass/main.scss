@@ -5,6 +5,23 @@
 
 /**************************Container Section***********************************/
 
-span2, span10{
-	background-color:grey;
+// $header-img: image-url('app/views/img/45degreee_fabric.png', false, false);
+// background-image: $header-img;
+
+html{
+}
+div.sidebar, div.feedview{
+	background-color: #dceaf4;
+	-webkit-border-radius: 5px;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+div.sidebar{
+	margin: 0 auto;
+	position: static;
+}
+section{
+	display:inline;
+	position:relative;
 }
