@@ -140,6 +140,9 @@
                 </div>
     		</div>
     	</div>
+            <div id="google-overlay">
+                <a href='#' id='authorize-button' onclick='handleAuthClick();'>Login with Google</a>
+            </div>
 
 
 
@@ -164,8 +167,98 @@
 
     <script src="/js/app.js"></script>
     <script src="/js/bootstrap.js"></script>
+    <script type="text/javascript">
+      var clientId = '520485388101.apps.googleusercontent.com';
+      // To use in your own application, replace this API key with your own.
+      var apiKey = 'AIzaSyD0X1YQ_uwjhzBYvmwYXAwsSP23ELcxFU8';
+      // To enter one or more authentication scopes, refer to the documentation for the API.
+      var scopes = 'https://www.googleapis.com/auth/calendar.readonly';
+
+       //Several boilerplate methods to check that the user is logged in and to handle authorization
+      function handleClientLoad() {
+        gapi.client.setApiKey(apiKey);
+        window.setTimeout(checkAuth,1);
+        checkAuth();
+      }
+
+      function checkAuth() {
+        gapi.auth.authorize({client_id: clientId, scope: scopes, immediate: true},
+            handleAuthResult);
+      }
+
+      function handleAuthResult(authResult) {
+        var authorizeButton = document.getElementById('authorize-button');
+        if (authResult) {
+          makeApiCall();
+        } else {
+            googover();
+          authorizeButton.onclick = handleAuthClick;
+         }
+      }
+
+      function handleAuthClick(event) {
+        gapi.auth.authorize(
+            {client_id: clientId, scope: scopes, immediate: false},
+            handleAuthResult);
+        return false;
+      }
+
+// Once the application is authorized, the makeApiCall function makes a request to the API of your choice
+// 
+      function makeApiCall() {
+        var start = new Date();
+  gapi.client.load('calendar', 'v3', function() {
+    var request = gapi.client.calendar.events.list({
+      'calendarId': 'primary',
+      'singleEvents': 'true',
+      'orderBy': 'startTime',
+      'maxResults': 50
+
+    });
+    // console.log(start);
+
+   // make a request to retrieve a list of events from the user’s primary calendar, and use the results to populate a list on the page       
+    request.execute(function(resp) {
+      console.log(resp);
+      for (var i = 0; i < resp.items.length; i++) {
+        // console.log(resp.items[i]);
+        if(resp.items[i].summary != ' ' && resp.items[i].summary){
+          if (resp.items[i].summary.indexOf("[cc]") !== -1) {
+            var li = document.createElement('li');
+            li.appendChild(document.createTextNode(resp.items[i].summary));
+            document.getElementById('events').appendChild(li);   
+          };
+        }
+
+      }
+    });
+  });
+}
 
 
+    </script>
+    <script src="https://apis.google.com/js/client.js?onload=handleClientLoad"></script>
+    <script src="http://cdn.jquerytools.org/1.2.7/full/jquery.tools.min.js"></script>
+    <script>
+          function googover(){$('#google-overlay').overlay({
+            top: 260,
+             mask: {
+ 
+        // you might also consider a "transparent" color for the mask
+         color: '#000',
+ 
+         // load mask a little faster
+         loadSpeed: 200,
+ 
+         // very transparent
+         opacity: 0.7
+         },
+            closeOnClick: false,
+            load: true
+
+        });
+      }
+    </script>
 
   </body>
 </html>

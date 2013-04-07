@@ -280,3 +280,30 @@ img.settings {
   bottom: 0px;
   margin-left:0px;
 }
+#google-overlay{
+  height: 100px;
+  width: 400px;
+  display: block;
+  margin: 0 auto;
+  left: 0!important;
+  right: 0;
+  position: relative;
+  background: #fff;
+}
+#authorize-button{
+  display: block;
+  width: 200px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-right: 4px;
+  padding-left: 4px;
+  background: #41aeef;
+  height: 30px;
+  margin: 0 auto;
+  margin-top: 20px;
+  color: #fff;
+  text-decoration: none;
+  text-align: center;
+  line-height: 30px;
+  font-size: 24px;
+}
