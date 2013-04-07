@@ -40,12 +40,14 @@ function getEvent(eventId,callback){
 	console.log('Calling getEvent '+eventId);
 	var connection=getConnection();
 	connection.query('SELECT * from event where event_id=?',[eventId], function(err, result, fields) {
-		if (err) throw err;
+        if (err) {
+            callback(err);
+        }
 		for (var i=0;i<result.length;i++){
 			result[i].start_date=dateFormat(result[i].start_date, "isoDateTime");
 			result[i].end_date=dateFormat(result[i].end_date, "isoDateTime");
 		}
-		callback(result);
+		callback(null, result);
 	});
 	connection.end();
 }
@@ -55,8 +57,7 @@ function getEventByDateAndDescription(date,description,callback){
 	var connection=getConnection();
 	connection.query('SELECT * FROM event where MATCH(description) AGAINST (? IN boolean mode) AND ABS(DATEDIFF(start_date,?))<2',
 			[description, date], function(err, result, fields) {
-		if (err) throw err;
-		callback(result);
+		callback(err, result);
 	});
 	connection.end();
 }
@@ -65,8 +66,7 @@ function removeEvent(eventId,callback){
 	console.log('Calling removeEvent');
 	var connection=getConnection();
 	connection.query('delete from event where event_id= ?',[eventId], function(err, result, fields) {
-		if (err) throw err;
-		callback(result);
+		callback(err, result);
 	});
 	connection.end();
 }
@@ -78,9 +78,7 @@ function addUser(user,callback){
     //fix event format
     connection.query('insert into user set ?',user, function(err, result, fields) {
         console.log(err);
-        if (err.code == 'ER_DUP_ENTRY') callback(null);
-        else if (err) callback(null);
-        callback(result);
+        callback(err,result);
     });
     connection.end();
 }
@@ -104,8 +102,7 @@ function removeUser(userId,callback){
 	console.log('Calling removeUser');
 	var connection=getConnection();
 	connection.query('delete from user where user_id= ?',[userId], function(err, result, fields) {
-		if (err) throw err;
-		callback(result);
+		callback(err, result);
 	});
 	connection.end();
 }
@@ -116,8 +113,7 @@ function addUserToEvent(userId,eventId,callback){
 	console.log('Calling addUserToEvent:');
 	var connection=getConnection();
 	connection.query('insert into user_to_event values(?,?)',[userId,eventId], function(err, result, fields) {
-		if (err) throw err;
-		callback(result);
+		callback(err, result);
 	});
 	connection.end();
 };
@@ -126,8 +122,7 @@ function getUserEvents(userId,callback){
 	console.log('Calling getUserEvents');
 	var connection=getConnection();
 	connection.query('SELECT * from user_to_event where user_id=?',[userId], function(err, result, fields) {
-		if (err) throw err;
-		callback(result);
+		callback(err, result);
 	});
 	connection.end();
 };
@@ -136,8 +131,7 @@ function removeUserToEvent(userId,eventId,callback){
 	console.log('Calling removeUserToEvent');
 	var connection=getConnection();
 	connection.query('delete from user_to_event where user_id=? and event_id=?',[userId,eventId], function(err, result, fields) {
-		if (err) throw err;
-		callback(result);
+		callback(err, result);
 	});
 	connection.end();
 };

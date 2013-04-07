@@ -56,7 +56,7 @@ module.exports = function() {
 
                 console.log(profile);
                 graph.setAccessToken(accessToken);
-                graph.get(profile.id+"?fields=picture?type=large", function(err, res) {
+                graph.get(profile.id+"?fields=picture", function(err, res) {
                     console.log(res); // { picture: 'http://profile.ak.fbcdn.net/'... }
                 var user={ 
                     user_id: profile.id, 
