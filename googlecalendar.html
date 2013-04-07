@@ -63,23 +63,29 @@
 // Once the application is authorized, the makeApiCall function makes a request to the API of your choice
 // 
       function makeApiCall() {
+        var start = new Date();
   gapi.client.load('calendar', 'v3', function() {
     var request = gapi.client.calendar.events.list({
-      'calendarId': 'primary'
+      'calendarId': 'primary',
+      'singleEvents': 'true',
+      'orderBy': 'startTime',
+      'maxResults': 50
+
     });
+    // console.log(start);
 
    // make a request to retrieve a list of events from the user’s primary calendar, and use the results to populate a list on the page       
     request.execute(function(resp) {
       console.log(resp);
       for (var i = 0; i < resp.items.length; i++) {
         // console.log(resp.items[i]);
-        // if(resp.items[i].summary != ' ' && resp.items[i].summary){
-          // if (resp.items[i].summary.indexOf("[cc]") !== -1) {
-            // var li = document.createElement('li');
-            // li.appendChild(document.createTextNode(resp.items[i].summary));
-            // document.getElementById('events').appendChild(li);   
-          // };
-        // }
+        if(resp.items[i].summary != ' ' && resp.items[i].summary){
+          if (resp.items[i].summary.indexOf("[cc]") !== -1) {
+            var li = document.createElement('li');
+            li.appendChild(document.createTextNode(resp.items[i].summary));
+            document.getElementById('events').appendChild(li);   
+          };
+        }
 
       }
     });
