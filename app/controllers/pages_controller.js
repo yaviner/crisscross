@@ -14,4 +14,5 @@ PagesController.showCrossview = function(){
 	this.render('crossview');
 	console.log("this is method2");
 }
+
 module.exports = PagesController;
