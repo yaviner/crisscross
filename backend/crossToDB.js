@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /**
 * This class implements the logic for matching an event to our events table
 * In gener we receive an updated calendar event and
@@ -27,3 +28,4 @@ function processNewCalendarEvent(userEvent){
 
 function checkExists(userEvent){
 }
+
