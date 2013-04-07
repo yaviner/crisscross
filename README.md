@@ -5,3 +5,4 @@ Application to find when you'll crisscross with people you know according to you
 
 Installed Node.Js modules:
 npm install mysql@2.0.0-alpha7
+npm install locomotive -g
