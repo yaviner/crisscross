@@ -1,6 +1,6 @@
 var express = require('express')
 , poweredBy = require('connect-powered-by')
-, util = require('util');
+, util = require('util')
 , passport = require('passport');
 
 module.exports = function() {
@@ -36,11 +36,11 @@ module.exports = function() {
     // middleware is built-in, with additional [third-party](https://github.com/senchalabs/connect/wiki)
     // middleware available as separate modules.
     this.use(poweredBy('Locomotive'));
-    this.use(passport.initialize());
     this.use(express.cookieParser());
     this.use(express.session({ secret: 'keyboard cat' }));
     // Initialize Passport!  Also use passport.session() middleware, to support
     // persistent login sessions (recommended).
+    this.use(passport.initialize());
     this.use(passport.session());
     this.use(express.logger());
     this.use(express.favicon());

@@ -1,10 +1,14 @@
 var express = require('express')
 , passport = require('passport')
 , util = require('util')
-, FacebookStrategy = require('passport-facebook').Strategy;
+, FacebookStrategy = require('passport-facebook').Strategy
+, db = require('../../backend/dbAccess.js')
+, https = require('https')
+, graph = require('fbgraph');
 
 var FACEBOOK_APP_ID = "183311905150453"
 var FACEBOOK_APP_SECRET = "78fdedcb51e0c2da92c743f51048469f";
+var facebook_url = "https://graph.facebook.com/";
 
 
 // Passport session setup.
@@ -16,11 +20,15 @@ var FACEBOOK_APP_SECRET = "78fdedcb51e0c2da92c743f51048469f";
 //   and deserialized.
 module.exports = function() {
     passport.serializeUser(function(user, done) {
-        done(null, user);
+        console.log("serializing");
+        console.log(user);
+        done(null, user.user_id);
     });
 
-    passport.deserializeUser(function(obj, done) {
-        done(null, obj);
+    passport.deserializeUser(function(id, done) {
+        console.log("deserializing");
+        console.log(id);
+        db.getUser(id, done);
     });
 
 
@@ -31,22 +39,52 @@ module.exports = function() {
     passport.use(new FacebookStrategy({
         clientID: FACEBOOK_APP_ID,
         clientSecret: FACEBOOK_APP_SECRET,
-        callbackURL: "http://localhost:3000/auth/facebook/callback"
+        callbackURL: "http://localhost:3000/auth/facebook/callback",
+        profileFields: ['id', 'displayName']
     },
     function(accessToken, refreshToken, profile, done) {
         // asynchronous verification, for effect...
         process.nextTick(function () {
+            db.getUser(profile.id, function(err, user) {
+                if (err) {
+                    return done(err);
+                }
+                if (user) {
+                    console.log(user);
+                    return done(null, user);
+                }
 
-            // To keep the example simple, the user's Facebook profile is returned to
-            // represent the logged-in user.  In a typical application, you would want
-            // to associate the Facebook account with a user record in your database,
-            // and return that user instead.
-            return done(null, profile, accessToken);
+                console.log(profile);
+                graph.setAccessToken(accessToken);
+                graph.get(profile.id+"?fields=picture", function(err, res) {
+                    console.log(res); // { picture: 'http://profile.ak.fbcdn.net/'... }
+                var user={ 
+                    user_id: profile.id, 
+                    facebook_key: accessToken, 	
+                    gCalendar_key: 'gCalendarKey', 	
+                    name: profile.displayName,
+                    picture_url: res.picture.data.url
+                }
+                console.log(user);
+                db.addUser(user, function() {} );
+                return done(null, user);
+                });
+            });
         });
-    }
-    ));
-}
-
+    })
+    )};
+/*
+   https.get(facebook_url + profile.id + "?fields=picture&access_token=" + accessToken, function(res) {
+   console.log("Got response: " + res.statusCode);
+   var data='';
+   res.on('data', function (chunk) {
+   data+=chunk;
+   });
+   res.on('end', function () {
+   var DataJson = JSON.parse(data);
+   callback(DataJson.events);
+   });
+   console.log(res);
 /*app.get('/account', ensureAuthenticated, function(req, res){*/
 /*    res.render('account', { user: req.user });*/
 /*});*/
@@ -88,6 +126,6 @@ module.exports = function() {
 //   login page.
 function ensureAuthenticated(req, res, next) {
     if (req.isAuthenticated()) { return next(); }
-    res.redirect('/login')
+    res.redirect('/login');
 }
 

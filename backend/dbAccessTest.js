@@ -38,7 +38,7 @@ function testUser(){
 		var userId=response.insertId;
 		dbAccess.getUser(userId,function(response){
 			console.log(response);
-			dbAccess.removeUser(userId,function(response){});
+/*			dbAccess.removeUser(userId,function(response){});*/
 		});		
 	});
 };
