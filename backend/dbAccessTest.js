@@ -14,7 +14,6 @@ var event={
 //Event mock object
 var user={ 
 	user_id: '1', 
-	facebook_id: '2', 	
 	facebook_key: 'facebookKey', 	
 	gCalendar_key: 'gCalendarKey', 	
 	name: 'Carlos',
@@ -25,9 +24,12 @@ var user={
 function testEvents(){
 	dbAccess.addEvent(event,function(response){
 		var eventId=response.insertId;
-		dbAccess.getEvent(eventId,function(response){
+		dbAccess.getEventByDateAndDescription(event.start_date,event.description,function(response){
 			console.log(response);
-			dbAccess.removeEvent(eventId,function(response){});
+			dbAccess.getEvent(eventId,function(response){
+				console.log(response);
+				dbAccess.removeEvent(eventId,function(response){});
+			});
 		});
 	});
 };

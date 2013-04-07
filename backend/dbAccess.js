@@ -50,6 +50,17 @@ function getEvent(eventId,callback){
 	connection.end();
 }
 
+function getEventByDateAndDescription(date,description,callback){
+	console.log('Calling getEventByDataAndDescription: '+ date + ',' + description);
+	var connection=getConnection();
+	connection.query('SELECT * FROM event where MATCH(description) AGAINST (? IN boolean mode) AND ABS(DATEDIFF(start_date,?))<2',
+			[description, date], function(err, result, fields) {
+		if (err) throw err;
+		callback(result);
+	});
+	connection.end();
+}
+
 function removeEvent(eventId,callback){
 	console.log('Calling removeEvent');
 	var connection=getConnection();
@@ -127,6 +138,7 @@ function removeUserToEvent(userId,eventId,callback){
 
 exports.addEvent=addEvent;
 exports.getEvent=getEvent;
+exports.getEventByDateAndDescription=getEventByDateAndDescription;
 exports.removeEvent=removeEvent;
 
 exports.addUser=addUser;
