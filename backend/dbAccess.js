@@ -13,9 +13,9 @@ var dateFormat = require('dateformat');
 function getConnection(){
 	var connection = mysql.createConnection({
 		//var pool = mysql.createPool({
-		host     : 'localhost',
+		host     : '198.211.114.240',
 		user     : 'crisscross',
-		password : 'user1234',
+		password : 'user12345',
 		database : 'crisscross', 
 	});
 	return connection;
