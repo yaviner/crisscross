@@ -1,6 +1,6 @@
 /**
 * This class implements the logic for matching an event to our events table
-* In gener we receive an updated calendar event and
+* In general we receive an updated calendar event and
 * we try the following:
 * 1) Match it against what we currently have on the events table. 
 * 2) If 1) fails, We try to find it in seatgeek.com and create the event on the event table
@@ -11,10 +11,11 @@ var dbAccess = require('./dbAccess');
 var http = require('http');
 var dateFormat = require('dateformat');
 
+//Entry method
 function processNewCalendarEvent(userId,userCalendarEvent, callback){
 	console.log("Processing processNewCalendarEvent");
 	checkExists(userCalendarEvent,function(response){
-		
+		dbAccess.addUserToEvent(userId,response,function(response)){};
 	});
 	
 }
@@ -104,4 +105,3 @@ function searchSeatGeek(date,description,callback){
 }	
 
 exports.processNewCalendarEvent=processNewCalendarEvent;
-exports.searchSeatGeek=searchSeatGeek;
