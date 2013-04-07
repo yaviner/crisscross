@@ -4,9 +4,9 @@
 var crossToDB = require('./crossToDB');
 
 var userEventCalendar={
-	date:'2013-04-06T00:00:00',
-	description:'Coldplay Concert'
+	date:'2013-04-25T21:00:00',
+	description:'coldplay'
 };
 
-//crossToDB.processNewCalendarEvent(userEventCalendar,function(response){});
-crossToDB.searchSeatGeek('2013-04-06T00:00:00','Coldplay Concert',function(response){});
+crossToDB.processNewCalendarEvent('1',userEventCalendar,function(response){});
+//crossToDB.searchSeatGeek('2013-04-25T21:00:00','Coldplay',function(response){});
