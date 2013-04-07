@@ -21,16 +21,14 @@ h1#logo{
 	margin-bottom: 45px;
 }
 h2#subtitle{
-	font-size: 36px;
+	font-size: 34px;
 	color: #ffffff;
 	width: 900px;
 	margin: 0 auto;
 	/*text-shadow: 2px 4px 5px #000;*/
-	text-shadow: 1px 1px 3px #5c5c5c;
-        filter: dropshadow(color=#5c5c5c, offx=1, offy=1);
+text-shadow: 1px 2px 3px #333333;
+        filter: dropshadow(color=#333333, offx=1, offy=2);
 	font-family: 'Sanchez', serif;
-	  /*font-family: league-gothic, serif;*/
-
 	text-align: center;
 	margin-bottom: 40px;
 }
@@ -42,9 +40,17 @@ h2#subtitle{
 	box-sizing: border-box;
 }
 #sign_band_inner{
-	width: 980px;
+	width: 400px;
 	margin: 0 auto;
-	height: 200px;
+	height: 87px;
 	line-height: 200px;
 	text-align: center;
+	background-image: url('/img/login-with-facebook.png');
+	background-repeat: no-repeat;
+}
+#sign_band_inner:hover{
+	background-image: url('/img/login-with-facebook-hl.png');
+}
+#preload{
+	text-indent: -9999px;
 }
