@@ -21,12 +21,16 @@ h1#logo{
 	margin-bottom: 45px;
 }
 h2#subtitle{
-	font-size: 32px;
+	font-size: 36px;
 	color: #ffffff;
 	width: 900px;
 	margin: 0 auto;
-	text-shadow: 2px 4px 5px #000;
+	/*text-shadow: 2px 4px 5px #000;*/
+	text-shadow: 1px 1px 3px #5c5c5c;
+        filter: dropshadow(color=#5c5c5c, offx=1, offy=1);
 	font-family: 'Sanchez', serif;
+	  /*font-family: league-gothic, serif;*/
+
 	text-align: center;
 	margin-bottom: 40px;
 }
