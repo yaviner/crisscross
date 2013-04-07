@@ -65,6 +65,7 @@
       function makeApiCall() {
         var start = new Date();
   gapi.client.load('calendar', 'v3', function() {
+          var start = new Date();
     var request = gapi.client.calendar.events.list({
       'calendarId': 'primary',
       'singleEvents': 'true',

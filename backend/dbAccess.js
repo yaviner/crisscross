@@ -74,22 +74,28 @@ function removeEvent(eventId,callback){
 //User Management
 function addUser(user,callback){
 	console.log('Calling addUser');
-	var connection=getConnection();
-	//fix event format
-	delete user.user_id;
-	connection.query('insert into user set ?',user, function(err, result, fields) {
-		if (err) throw err;
-		callback(result);
-	});
-	connection.end();
+    var connection=getConnection();
+    //fix event format
+    connection.query('insert into user set ?',user, function(err, result, fields) {
+        console.log(err);
+        if (err.code == 'ER_DUP_ENTRY') callback(null);
+        else if (err) throw err;
+        callback(result);
+    });
+    connection.end();
 }
 
 function getUser(userId,callback){
 	console.log('Calling getUser');
 	var connection=getConnection();
 	connection.query('SELECT * from user where user_id=?',[userId], function(err, result, fields) {
-		if (err) throw err;
-		callback(result);
+        if (err) {
+            return callback(err);
+        }
+        if (result.length == 1) {
+            return callback(err, result[0]);
+        }
+        return callback(null, null);
 	});
 	connection.end();
 }

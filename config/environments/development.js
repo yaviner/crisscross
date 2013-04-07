@@ -3,7 +3,6 @@ var passport = require('passport');
 var app = express();
 
 module.exports = function() {
-    this.use(passport.initialize());
     this.use(express.errorHandler());
     this.use(express.logger());
     this.use(express.cookieParser());
@@ -12,6 +11,7 @@ module.exports = function() {
     this.use(express.session({ secret: 'keyboard cat' }));
     // Initialize Passport!  Also use passport.session() middleware, to support
     // persistent login sessions (recommended).
+    this.use(passport.initialize());
     this.use(passport.session());
     this.use(app.router);
 }
