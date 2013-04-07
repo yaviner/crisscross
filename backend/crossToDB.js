@@ -85,7 +85,7 @@ function searchSeatGeek(date,description,callback){
 		var dataJson = JSON.parse(data).events;
 		//Now we remove any venue that is not on the US
 		while(dataJson.length>0){
-			if(dataJson[0].venue.country == 'Denmark') {
+			if(dataJson[0].venue.country == 'US') {
 				response[index]=dataJson[0];
 			}
 			dataJson.splice(0, 1);			
