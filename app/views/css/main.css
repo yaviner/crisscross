@@ -2,6 +2,11 @@
 /**************************Header Section***********************************/
 /**************************Container Section***********************************/
 /* line 13, ../sass/main.scss */
+header {
+  display: block;
+}
+
+/* line 20, ../sass/main.scss */
 div.sidebar, div.feedview {
   background-color: #dceaf4;
   -webkit-border-radius: 5px;
@@ -9,14 +14,27 @@ div.sidebar, div.feedview {
   padding: 10px;
 }
 
-/* line 20, ../sass/main.scss */
+/* line 27, ../sass/main.scss */
 div.sidebar {
+  top: 125px;
   margin: 0 auto;
-  position: static;
+  position: fixed;
+  padding-bottom: 30px;
 }
 
-/* line 24, ../sass/main.scss */
+/* line 36, ../sass/main.scss */
 section {
   display: inline;
   position: relative;
+}
+
+/* line 41, ../sass/main.scss */
+img.logo {
+  padding: 0;
+  margin: 0;
+  position: fixed;
+}
+/* line 46, ../sass/main.scss */
+img.settings {
+  padding-right: 10px;
 }

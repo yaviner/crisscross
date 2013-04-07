@@ -10,6 +10,13 @@
 
 html{
 }
+header{
+	display:block;
+}
+
+font{
+
+}
 div.sidebar, div.feedview{
 	background-color: #dceaf4;
 	-webkit-border-radius: 5px;
@@ -18,10 +25,25 @@ div.sidebar, div.feedview{
 }
 
 div.sidebar{
+	top: 125px;
 	margin: 0 auto;
-	position: static;
+	position: fixed;
+	padding-bottom: 30px;
+}
+div.feedview{
+	
 }
 section{
 	display:inline;
 	position:relative;
+}
+img{
+	&.logo{
+		padding: 0;
+		margin: 0;
+		position:fixed;
+	}
+	&.settings{
+		padding-right: 10px;
+	}
 }
