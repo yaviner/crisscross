@@ -79,7 +79,7 @@ function addUser(user,callback){
     connection.query('insert into user set ?',user, function(err, result, fields) {
         console.log(err);
         if (err.code == 'ER_DUP_ENTRY') callback(null);
-        else if (err) throw err;
+        else if (err) callback(null);
         callback(result);
     });
     connection.end();

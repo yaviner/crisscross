@@ -14,8 +14,8 @@ PagesController.main = function() {
 PagesController.showCrossview = function(){
 	this.title="crisscross"
 	console.log("this is method2");
-    var usr = this.req.user;
-	this.render('crossview', {name: usr.displayName, picture:  usr.picture_url});
+    console.log(this.req.user);
+	this.render('crossview', {name: this.req.user.name, picture:  this.req.user.picture_url});
 }
 
 module.exports = PagesController;
