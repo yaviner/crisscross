@@ -40,9 +40,17 @@ text-shadow: 1px 2px 3px #333333;
 	box-sizing: border-box;
 }
 #sign_band_inner{
-	width: 980px;
+	width: 400px;
 	margin: 0 auto;
-	height: 200px;
+	height: 87px;
 	line-height: 200px;
 	text-align: center;
+	background-image: url('/img/login-with-facebook.png');
+	background-repeat: no-repeat;
+}
+#sign_band_inner:hover{
+	background-image: url('/img/login-with-facebook-hl.png');
+}
+#preload{
+	text-indent: -9999px;
 }

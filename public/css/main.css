@@ -17,9 +17,12 @@ div.sidebar, div.feedview {
   padding: 10px;
 }
 div#filter_sec{
-  float: left;
+  display: block;
   text-align: left;
-  margin-left: 15px;
+  margin-left: 10px;
+  height:50px;
+  float: none;
+  position: relative;
 }
 .top_row{
   position: relative;
@@ -28,10 +31,8 @@ input.search{
   font-size: 27px;
   padding-left: 14px;
   padding-top: 8px;
-  padding-bottom: 8px;
-  float: left;
+  padding-bottom: 2px;
   margin-left: 35px;
-  position: absolute;
   bottom: 25px;
   border-radius: 0px;
   color: #000;
@@ -39,7 +40,11 @@ input.search{
   outline-style: none;
   -webkit-appearance: none;
   border: 0px solid #414142;
-  border-bottom: 1px solid #000;
+  border-bottom: 1px solid #414142;
+  float: none;
+  display: block;
+  margin-bottom: 15px;
+  margin-top: 15px;
 }
 input.search:after{
   content: "";
@@ -68,11 +73,15 @@ input.search:after{
   padding-left: 0px;
   padding-top: 0px;
   margin-top: 5px;
+  cursor: pointer;
 }
 .upcoming_personal li{
   padding-bottom: 10px;
   padding-top: 10px;
   border-bottom: 1px solid #ccc;
+}
+.upcoming_personal li:hover .personal_title{
+  color: #41aeef;
 }
 .upcoming_personal li:last-child{
   border-bottom: 0px;
@@ -82,6 +91,12 @@ input.search:after{
   font-size: 28px;
   text-transform: uppercase;
   padding-right: 8px;
+  -webkit-transition: color 0.3s ease-out;
+  -moz-transition: color 0.3s ease-out;
+  -ms-transition: color 0.3s ease-out;
+  -o-transition: color 0.3s ease-out;
+  transition: color 0.3s ease-out;
+  -webkit-transform: translateZ(0);
 }
 .personal_date{
   color: rgba(0,0,0,0.7);
@@ -150,6 +165,7 @@ img.settings {
 .event_bg{
   background-color: #fff;
   position: relative;
+  cursor: pointer;
 }
 .event_overlay{
   display: block;
@@ -177,6 +193,12 @@ img.settings {
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
+  -webkit-transition: color 0.3s ease-out;
+  -moz-transition: color 0.3s ease-out;
+  -ms-transition: color 0.3s ease-out;
+  -o-transition: color 0.3s ease-out;
+  transition: color 0.3s ease-out;
+  -webkit-transform: translateZ(0);
 }
 .feed_event_date{
   color: rgba(0,0,0,0.9);
@@ -247,7 +269,7 @@ img.settings {
   text-align: right;
   padding-right: 0px;
   margin-left: -50px;
-  padding-bottom: 20px;
+  padding-bottom: 70px;
 }
 #fader{
   position: fixed;
