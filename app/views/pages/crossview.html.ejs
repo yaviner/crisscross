@@ -49,7 +49,7 @@
                     </li>
 				</ul>
                 <ul class="personal_links">
-                    <li><a href="#">add/remove calendars</a></li>
+                    <!--<li><a href="#">add/remove calendars</a></li>-->
                     <li><a href="#">logout</a></li>
                 </ul>
     		</div>
@@ -143,7 +143,9 @@
     		</div>
     	</div>
             <div id="google-overlay">
-                <a href='#' id='authorize-button' onclick='handleAuthClick();'>Login with Google</a>
+                <h2>Welcome!</h2>
+                <p>To fully benefit from Crisscross, you first need to add your calendar!</p>
+                <a href='#' id='authorize-button' onclick='handleAuthClick();'>Add Google Calendar</a>
             </div>
 
 
@@ -192,6 +194,7 @@
         var authorizeButton = document.getElementById('authorize-button');
         if (authResult) {
           makeApiCall();
+          $('#google-overlay').overlay().close();
         } else {
             googover();
           authorizeButton.onclick = handleAuthClick;
