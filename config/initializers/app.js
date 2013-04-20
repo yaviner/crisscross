@@ -13,7 +13,7 @@ var facebook_url = "https://graph.facebook.com/";
 
 var GOOGLE_CLIENT_ID = "352371946839";
 var GOOGLE_CLIENT_SECRET = "XAGcm1FrKvfXtxJJ067xB0p6";
-var GOOGLE_SCOPE = "https://www.googleapis.com/auth/userinfo.profile";
+var GOOGLE_SCOPE = "https://www.googleapis.com/auth/userinfo.calendar";
 var google_url = "http://127.0.0.1:3000/auth/google/callback";
 
 
@@ -42,12 +42,24 @@ module.exports = function() {
         clientID: GOOGLE_CLIENT_ID,
         clientSecret: GOOGLE_CLIENT_SECRET,
         callbackURL: google_url,
-        scope: GOOGLE_SCOPE
+        passReqToCallback: true
     },
-    function(accessToken ,refreshtoken, profile, done) {
-        User.findOrCreate({ googleId: profile.id }, function (err, user) {
-            return done(eer, user);
-        });
+    function(req, accessToken ,refreshtoken, profile, done) {
+        console.log("calling google");
+        console.log(accessToken + " " + refreshtoken + " " + profile);
+        function(token, tokenSecret, profile, done) {
+            Account.findOne({ domain: 'google.com', uid: profile.id }, function(err, account) {
+                if (err) { return done(err); }
+                if (account) { return done(null, account); }
+
+                var account = new Account();
+                account.domain = 'google.com';
+                account.uid = profile.id;
+                var t = { kind: 'oauth', token: token, attributes: { tokenSecret: tokenSecret } };
+                account.tokens.push(t);
+                return done(null, account);
+            });
+        }
     }
     ));
 
