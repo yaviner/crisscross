@@ -54,7 +54,7 @@ input.search:after{
   background-image: url('/img/search.png');
 }
 .profPic{
-  border: 6px solid #414243;
+  border: 0px solid #414243;
   border-radius: 0px;
   margin-bottom: 10px;
 }
@@ -62,11 +62,21 @@ input.search:after{
   text-align: left;
   padding-right: 0px;
   color: rgba(65,174,239,1);
-  margin-bottom: 0px;
+  margin-bottom: 10px;
   padding-bottom: 0px;
-  font-size: 40px;
-  line-height: 32px;
+  font-size: 30px;
+  line-height: 30px;
   text-transform: uppercase;
+  display: inline-block;
+}
+header{
+  display: block;
+}
+#personal_topblock{
+  display: block;
+  width: 100%;
+  height: 100px;
+  margin-top: 210px;
 }
 .upcoming_personal{
   list-style: none;
