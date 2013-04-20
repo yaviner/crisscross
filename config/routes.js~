@@ -14,7 +14,16 @@ module.exports = function routes() {
   this.match('/auth/facebook/callback', 
         passport.authenticate('facebook', { failureRedirect: '/login' }),
         function(req, res) {
+            console.log("routes");
             console.log(req.user);
             res.redirect('/crossview');
         });
+  this.match('/auth/google',
+          passport.authenticate('google'));
+
+  this.match('/auth/google/callback',
+          passport.authenticate('google', { failureRedirect: '/google' }),
+          function(req, res) {
+              res.redirect('/');
+          });
 }
