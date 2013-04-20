@@ -50,7 +50,7 @@
 				</ul>
                 <ul class="personal_links">
                     <!--<li><a href="#">add/remove calendars</a></li>-->
-                    <li><a href="#">logout</a></li>
+                    <li><a href="/logout">logout</a></li>
                 </ul>
     		</div>
 
@@ -196,7 +196,7 @@
           makeApiCall();
           $('#google-overlay').overlay().close();
         } else {
-            googover();
+          googover();
           authorizeButton.onclick = handleAuthClick;
          }
       }
