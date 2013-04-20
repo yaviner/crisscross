@@ -280,6 +280,11 @@ img.settings {
   padding-right: 0px;
   margin-left: -50px;
   padding-bottom: 70px;
+  font-size: 12px;
+}
+.footer a{
+  color: #41aeef;
+  text-decoration: none;
 }
 #fader{
   position: fixed;
@@ -289,6 +294,7 @@ img.settings {
   display: block;
   bottom: 0px;
   margin-left:0px;
+  padding-bottom: 40px;
 }
 #google-overlay{
   width: 400px;
