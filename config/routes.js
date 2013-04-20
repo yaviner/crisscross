@@ -18,4 +18,15 @@ module.exports = function routes() {
             console.log(req.user);
             res.redirect('/crossview');
         });
+  this.match('/auth/google',
+          passport.authorize('google'));
+
+  this.match('/auth/google/callback',
+          passport.authorize('google', { failureRedirect: '/crossview' }),
+          function(req, res) {
+              console.log("routed");
+              console.log(req.account);
+              console.log(res);
+              res.redirect('/crossview');
+          });
 }

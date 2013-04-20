@@ -4,11 +4,17 @@ var express = require('express')
 , FacebookStrategy = require('passport-facebook').Strategy
 , db = require('../../backend/dbAccess.js')
 , https = require('https')
-, graph = require('fbgraph');
+, graph = require('fbgraph')
+, GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 
 var FACEBOOK_APP_ID = "183311905150453"
 var FACEBOOK_APP_SECRET = "78fdedcb51e0c2da92c743f51048469f";
 var facebook_url = "https://graph.facebook.com/";
+
+var GOOGLE_CLIENT_ID = "352371946839";
+var GOOGLE_CLIENT_SECRET = "XAGcm1FrKvfXtxJJ067xB0p6";
+var GOOGLE_SCOPE = "https://www.googleapis.com/auth/userinfo.calendar";
+var google_url = "http://127.0.0.1:3000/auth/google/callback";
 
 
 // Passport session setup.
@@ -30,6 +36,32 @@ module.exports = function() {
         console.log(id);
         db.getUser(id, done);
     });
+
+
+    passport.use(new GoogleStrategy({
+        clientID: GOOGLE_CLIENT_ID,
+        clientSecret: GOOGLE_CLIENT_SECRET,
+        callbackURL: google_url,
+        passReqToCallback: true
+    },
+    function(req, accessToken ,refreshtoken, profile, done) {
+        console.log("calling google");
+        console.log(accessToken + " " + refreshtoken + " " + profile);
+        function(token, tokenSecret, profile, done) {
+            Account.findOne({ domain: 'google.com', uid: profile.id }, function(err, account) {
+                if (err) { return done(err); }
+                if (account) { return done(null, account); }
+
+                var account = new Account();
+                account.domain = 'google.com';
+                account.uid = profile.id;
+                var t = { kind: 'oauth', token: token, attributes: { tokenSecret: tokenSecret } };
+                account.tokens.push(t);
+                return done(null, account);
+            });
+        }
+    }
+    ));
 
 
     // Use the FacebookStrategy within Passport.
@@ -73,51 +105,6 @@ module.exports = function() {
         });
     })
     )};
-/*
-   https.get(facebook_url + profile.id + "?fields=picture&access_token=" + accessToken, function(res) {
-   console.log("Got response: " + res.statusCode);
-   var data='';
-   res.on('data', function (chunk) {
-   data+=chunk;
-   });
-   res.on('end', function () {
-   var DataJson = JSON.parse(data);
-   callback(DataJson.events);
-   });
-   console.log(res);
-/*app.get('/account', ensureAuthenticated, function(req, res){*/
-/*    res.render('account', { user: req.user });*/
-/*});*/
-/**/
-/**/
-/*// GET /auth/facebook*/
-/*//   Use passport.authenticate() as route middleware to authenticate the*/
-/*//   request.  The first step in Facebook authentication will involve*/
-/*//   redirecting the user to facebook.com.  After authorization, Facebook will*/
-/*//   redirect the user back to this application at /auth/facebook/callback*/
-/*app.get('/auth/facebook',*/
-/*        passport.authenticate('facebook'),*/
-/*        function(req, res){*/
-/*            // The request will be redirected to Facebook for authentication, so this*/
-/*            // function will not be called.*/
-/*        });*/
-/**/
-/*// GET /auth/facebook/callback*/
-/*//   Use passport.authenticate() as route middleware to authenticate the*/
-/*//   request.  If authentication fails, the user will be redirected back to the*/
-/*//   login page.  Otherwise, the primary route function function will be called,*/
-/*//   which, in this example, will redirect the user to the home page.*/
-/*app.get('/auth/facebook/callback', */
-/*        passport.authenticate('facebook', { failureRedirect: '/login' }),*/
-/*        function(req, res) {*/
-/*            res.redirect('/');*/
-/*        });*/
-/**/
-/*app.get('/logout', function(req, res){*/
-/*    req.logout();*/
-/*    res.redirect('/');*/
-/*});*/
-/**/
 
 // Simple route middleware to ensure user is authenticated.
 //   Use this route middleware on any resource that needs to be protected.  If
