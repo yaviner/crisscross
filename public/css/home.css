@@ -10,20 +10,29 @@ body{
 	padding: 0;
 	margin: 0;
 }
+#main{
+	display: block;
+	width: 650px;
+	height: 550px;
+	background: rgba(255,255,255,0.4);
+	border-radius: 12px;
+	margin: 0 auto;
+	margin-top: 8%;
+	padding: 15px;
+}
 h1#logo{
 	text-indent: -9999px;
 	background-image: url('../../img/logo.png');
 	margin: 0 auto;
-	width: 500px;
-	height: 312px;
+	width: 400px;
+	height: 250px;
 	display: block;
-	margin-top: 8%;
 	margin-bottom: 45px;
+	background-repeat: no-repeat;
 }
 h2#subtitle{
-	font-size: 34px;
+	font-size: 30px;
 	color: #ffffff;
-	width: 900px;
 	margin: 0 auto;
 	/*text-shadow: 2px 4px 5px #000;*/
 text-shadow: 1px 2px 3px #333333;

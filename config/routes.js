@@ -16,6 +16,6 @@ module.exports = function routes() {
         function(req, res) {
             console.log("routes");
             console.log(req.user);
-            res.redirect('/crossview');
+            res.redirect('http://crisscross1.jit.su/crossview');
         });
 }
