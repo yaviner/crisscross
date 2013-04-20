@@ -98,6 +98,30 @@ function getUser(userId,callback){
 	connection.end();
 }
 
+function updateFriends(userId,friends,callback){
+	console.log('Calling updateFriends');
+	var connection=getConnection();
+	connection.query('CALL removeFriends(?)',[userId], function(err, result, fields) {
+        if (err) {
+            return callback(err);
+        }
+        return callback();
+	});
+	var insertValue = "";
+	for (var result in friends.data) {
+		connection.query('CALL addFriends(?,?)',[userId,friends.data[result].uid], function(err, result, fields) {
+        if (err) {
+            return callback(err);
+        }
+        return callback();
+	});
+		
+		
+	}
+	console.log(insertValue.substring(1,insertValue.length));
+	connection.end();
+}
+
 function removeUser(userId,callback){
 	console.log('Calling removeUser');
 	var connection=getConnection();
@@ -149,3 +173,4 @@ exports.addUserToEvent=addUserToEvent;
 exports.getUserEvents=getUserEvents;
 exports.removeUserToEvent=removeUserToEvent;
 
+exports.updateFriends=updateFriends;
