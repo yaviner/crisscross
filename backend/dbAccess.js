@@ -161,7 +161,7 @@ function removeUserToEvent(userId,eventId,callback){
 };
 
 //Query returns (user_id,event_id) of User's Friends that match the User's Event_ids
-function findMatchingEvents(userID) {  
+function findMatchingEvents(userID, callback) {  
     console.log('Getting Friend-Matching Events');
     var connection = getConnection();
     connection.query('SELECT fe.* FROM (SELECT ute.* FROM (SELECT * FROM friend_connection WHERE user2=? OR user1=?) as f, user_to_event ute WHERE ute.user_id=f.user1 OR ute.user_id=f.user2) as fe, (SELECT event_id FROM user_to_event WHERE user_id=?) as ue WHERE ue.event_id=fe.event_id and fe.user_id!=?', [userID, userID, userID, userID], function(err, result, fields){
