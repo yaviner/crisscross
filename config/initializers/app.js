@@ -44,22 +44,18 @@ module.exports = function() {
         callbackURL: google_url,
         passReqToCallback: true
     },
-    function(req, accessToken ,refreshtoken, profile, done) {
-        console.log("calling google");
-        console.log(accessToken + " " + refreshtoken + " " + profile);
-        function(token, tokenSecret, profile, done) {
-            Account.findOne({ domain: 'google.com', uid: profile.id }, function(err, account) {
-                if (err) { return done(err); }
-                if (account) { return done(null, account); }
+    function(token, tokenSecret, profile, done) {
+        Account.findOne({ domain: 'google.com', uid: profile.id }, function(err, account) {
+            if (err) { return done(err); }
+            if (account) { return done(null, account); }
 
-                var account = new Account();
-                account.domain = 'google.com';
-                account.uid = profile.id;
-                var t = { kind: 'oauth', token: token, attributes: { tokenSecret: tokenSecret } };
-                account.tokens.push(t);
-                return done(null, account);
-            });
-        }
+            var account = new Account();
+            account.domain = 'google.com';
+            account.uid = profile.id;
+            var t = { kind: 'oauth', token: token, attributes: { tokenSecret: tokenSecret } };
+            account.tokens.push(t);
+            return done(null, account);
+        });
     }
     ));
 

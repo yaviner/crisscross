@@ -1,0 +1,10 @@
+express@3.3.1
+locomotive@0.3.6
+ejs@0.8.4
+connect-powered-by@0.1.0
+mysql@2.0.0-alpha7
+passport@0.1.17
+passport-facebook@0.1.5
+fbgraph@0.2.6
+passport-google-oauth@0.1.5
+dateformat@1.0.6-1.2.3
